@@ -46,32 +46,48 @@ export class CustomRichTextEditorComponent implements OnInit {
 
   private onChange = (value: string) => {};
   private onTouched = () => {};
-  private isUpdatingContent = false; // Flag to prevent recursive updates
+  private isUpdatingContent = false;
 
   toolbarButtons: ToolbarButton[] = [
-    { command: 'bold', icon: 'B', title: 'Bold (Ctrl+B)' },
-    { command: 'italic', icon: 'I', title: 'Italic (Ctrl+I)' },
-    { command: 'underline', icon: 'U', title: 'Underline (Ctrl+U)' },
-    { command: 'strikeThrough', icon: 'S', title: 'Strikethrough' },
+    { command: 'bold', icon: 'format_bold', title: 'Bold (Ctrl+B)' },
+    { command: 'italic', icon: 'format_italic', title: 'Italic (Ctrl+I)' },
+    {
+      command: 'underline',
+      icon: 'format_underlined',
+      title: 'Underline (Ctrl+U)',
+    },
+    {
+      command: 'strikeThrough',
+      icon: 'format_strikethrough',
+      title: 'Strikethrough',
+    },
     { command: 'separator', icon: '', title: '' },
-    { command: 'insertUnorderedList', icon: '•', title: 'Bullet List' },
-    { command: 'insertOrderedList', icon: '1.', title: 'Numbered List' },
+    {
+      command: 'insertUnorderedList',
+      icon: 'format_list_bulleted',
+      title: 'Bullet List',
+    },
+    {
+      command: 'insertOrderedList',
+      icon: 'format_list_numbered',
+      title: 'Numbered List',
+    },
     { command: 'separator', icon: '', title: '' },
     {
       command: 'createLink',
-      icon: '🔗',
+      icon: 'link',
       title: 'Insert Link',
       requiresValue: true,
     },
     {
       command: 'insertImage',
-      icon: '📷',
+      icon: 'image',
       title: 'Insert Image',
       requiresValue: true,
     },
     { command: 'separator', icon: '', title: '' },
-    { command: 'undo', icon: '↶', title: 'Undo (Ctrl+Z)' },
-    { command: 'redo', icon: '↷', title: 'Redo (Ctrl+Y)' },
+    { command: 'undo', icon: 'undo', title: 'Undo (Ctrl+Z)' },
+    { command: 'redo', icon: 'redo', title: 'Redo (Ctrl+Y)' },
   ];
 
   ngOnInit(): void {
@@ -84,11 +100,9 @@ export class CustomRichTextEditorComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    // Initialize content after view is ready
     this.updateEditorContent(this.content);
   }
 
-  // ControlValueAccessor implementation
   writeValue(value: string): void {
     this.content = value || '';
     if (this.editorRef) {
@@ -117,13 +131,11 @@ export class CustomRichTextEditorComponent implements OnInit {
     if (this.isUpdatingContent) return;
 
     this.isUpdatingContent = true;
-
     const editor = this.editorRef.nativeElement;
     const selection = window.getSelection();
     const range =
       selection && selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
 
-    // Store cursor position
     let cursorPosition = 0;
     let cursorNode: Node | null = null;
 
@@ -132,11 +144,9 @@ export class CustomRichTextEditorComponent implements OnInit {
       cursorNode = range.startContainer;
     }
 
-    // Update content only if different
     if (editor.innerHTML !== content) {
       editor.innerHTML = content;
 
-      // Restore cursor position if possible
       if (cursorNode && editor.contains(cursorNode)) {
         try {
           const newRange = document.createRange();
@@ -148,7 +158,6 @@ export class CustomRichTextEditorComponent implements OnInit {
           selection?.removeAllRanges();
           selection?.addRange(newRange);
         } catch (e) {
-          // If we can't restore the exact position, place cursor at the end
           this.setCursorAtEnd();
         }
       }
@@ -193,7 +202,6 @@ export class CustomRichTextEditorComponent implements OnInit {
   }
 
   onEditorKeyDown(event: KeyboardEvent): void {
-    // Handle keyboard shortcuts
     if (event.ctrlKey || event.metaKey) {
       switch (event.key.toLowerCase()) {
         case 'b':

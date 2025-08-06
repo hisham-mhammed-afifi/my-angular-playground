@@ -1,30 +1,32 @@
-<div
+<mat-card
   class="rich-text-editor"
   [class.disabled]="disabled"
   [class.readonly]="readonly"
 >
   <!-- Toolbar -->
-  <div class="toolbar" *ngIf="showToolbar">
-    <div class="toolbar-group">
-      <ng-container *ngFor="let button of toolbarButtons">
-        <div class="separator" *ngIf="button.command === 'separator'"></div>
-        <button
-          *ngIf="button.command !== 'separator'"
-          type="button"
-          class="toolbar-button"
-          [class.active]="isCommandActive(button.command)"
-          [disabled]="disabled || readonly"
-          [title]="button.title"
-          (click)="executeCommand(button.command)"
-        >
-          <span class="button-icon">{{ button.icon }}</span>
-        </button>
-      </ng-container>
-    </div>
-  </div>
+  <mat-toolbar *ngIf="showToolbar" color="primary" class="toolbar">
+    <ng-container *ngFor="let button of toolbarButtons">
+      <mat-divider
+        *ngIf="button.command === 'separator'"
+        vertical
+      ></mat-divider>
+      <button
+        *ngIf="button.command !== 'separator'"
+        mat-icon-button
+        type="button"
+        [class.active]="isCommandActive(button.command)"
+        [disabled]="disabled || readonly"
+        [matTooltip]="button.title"
+        (click)="executeCommand(button.command)"
+        aria-label="button.title"
+      >
+        <mat-icon>{{ button.icon }}</mat-icon>
+      </button>
+    </ng-container>
+  </mat-toolbar>
 
   <!-- Editor Content Area -->
-  <div class="editor-container">
+  <mat-card-content class="editor-container">
     <div
       #editor
       class="editor-content"
@@ -36,12 +38,12 @@
       (blur)="onEditorBlur()"
       (keydown)="onEditorKeyDown($event)"
     ></div>
-  </div>
+  </mat-card-content>
 
-  <!-- Character/Word Count (Optional) -->
-  <div class="editor-footer" *ngIf="showToolbar">
-    <div class="editor-stats">
-      <span class="word-count">{{ getContent().length }} characters</span>
-    </div>
-  </div>
-</div>
+  <!-- Character/Word Count Footer -->
+  <mat-card-actions *ngIf="showToolbar" align="end">
+    <span class="word-count mat-body-2"
+      >{{ getContent().length }} characters</span
+    >
+  </mat-card-actions>
+</mat-card>

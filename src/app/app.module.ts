@@ -9,6 +9,13 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
 import { MatButtonModule } from '@angular/material/button'; // For navigation buttons
 import { MatIconModule } from '@angular/material/icon'; // Optional icons
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
+
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
@@ -71,9 +78,15 @@ import { HomeComponent } from './pages/home/home.component';
     ClipboardModule,
     CdkAccordionModule,
     CdkMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatButtonModule,
     MatTabsModule,
     MatIconModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatDividerModule,
+    MatTooltipModule,
     NgbModule,
     NgSelectModule,
   ],
