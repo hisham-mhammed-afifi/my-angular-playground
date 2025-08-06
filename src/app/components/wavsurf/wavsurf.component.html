@@ -1,12 +1,23 @@
-<button (click)="record.startRecording()">Record</button>
-<button (click)="record.pauseRecording()">Pause</button>
-<button (click)="record.resumeRecording()">Resume</button>
-<button (click)="record.stopRecording()">Stop</button>
+<h3 class="font-weight-bold">WavSurf</h3>
 
-<small>Current time: {{ wavesurfer?.getCurrentTime() }}</small>
+<small class="d-block">Current time: {{ wavesurfer?.getCurrentTime() }}</small>
+<div class="d-flex gap-2">
+  <button class="btn btn-primary" (click)="record.startRecording()">
+    Record
+  </button>
+  <button class="btn btn-secondary" (click)="record.pauseRecording()">
+    Pause
+  </button>
+  <button class="btn btn-success" (click)="record.resumeRecording()">
+    Resume
+  </button>
+  <button class="btn btn-danger" (click)="record.stopRecording()">Stop</button>
 
-<button (click)="wavesurfer?.playPause()">Play / pause</button>
-<div class="waveform-container">
+  <button class="btn btn-outline-dark" (click)="wavesurfer?.playPause()">
+    Play / pause
+  </button>
+</div>
+<div class="border mt-3">
   <div class="waveform" id="waveform" #waveform>
     <!-- Placeholder for waveform visualization -->
   </div>

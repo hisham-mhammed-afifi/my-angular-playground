@@ -38,10 +38,12 @@ export class WavsurfComponent implements OnInit, AfterViewInit {
       container: this.waveform.nativeElement,
       barGap: 3,
       barWidth: 3,
+      barHeight: 2,
       barRadius: 3,
       cursorWidth: 1,
-      waveColor: 'rgb(200, 0, 200)',
-      progressColor: 'rgb(100, 0, 100)',
+      height: 100,
+      waveColor: 'rgb(0, 0, 200)',
+      progressColor: 'rgb(100, 0, 0)',
     });
 
     // Initialize the Record plugin
