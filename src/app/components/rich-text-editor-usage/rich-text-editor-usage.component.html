@@ -1,0 +1,134 @@
+<div class="container">
+  <h1>Rich Text Editor Examples</h1>
+
+  <!-- Basic Usage with ngModel -->
+  <section>
+    <h2>Basic Usage (ngModel)</h2>
+    <app-custom-rich-text-editor
+      name="basicEditor"
+      [(ngModel)]="basicContent"
+      placeholder="Enter your text here..."
+      height="200px"
+      (contentChange)="onContentChange($event)"
+    >
+    </app-custom-rich-text-editor>
+    <p>Content: {{ basicContent }}</p>
+  </section>
+
+  <!-- Reactive Forms -->
+  <section>
+    <h2>Reactive Forms Integration</h2>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <app-custom-rich-text-editor
+          id="description"
+          formControlName="description"
+          placeholder="Enter description..."
+          height="250px"
+        >
+        </app-custom-rich-text-editor>
+        <div
+          class="error-message"
+          *ngIf="myForm.get('description')?.errors?.['required'] && myForm.get('description')?.touched"
+        >
+          Description is required
+        </div>
+      </div>
+      <button type="submit" [disabled]="myForm.invalid">Submit</button>
+    </form>
+    <div class="form-debug">
+      <h4>Form Value:</h4>
+      <pre>{{ myForm.value | json }}</pre>
+      <h4>Form Status:</h4>
+      <p>Valid: {{ myForm.valid }}</p>
+      <p>Touched: {{ myForm.get("description")?.touched }}</p>
+      <p>Dirty: {{ myForm.get("description")?.dirty }}</p>
+    </div>
+  </section>
+
+  <!-- Custom Configuration -->
+  <section>
+    <h2>Custom Configuration</h2>
+    <app-custom-rich-text-editor
+      name="customEditor"
+      [(ngModel)]="customContent"
+      [height]="'300px'"
+      [disabled]="isDisabled"
+      [readonly]="isReadonly"
+      [showToolbar]="showToolbar"
+      [customToolbarButtons]="customButtons"
+      (contentChange)="onCustomContentChange($event)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+    >
+    </app-custom-rich-text-editor>
+
+    <div class="controls">
+      <label>
+        <input type="checkbox" [(ngModel)]="isDisabled" name="disabledCheck" />
+        Disabled
+      </label>
+      <label>
+        <input type="checkbox" [(ngModel)]="isReadonly" name="readonlyCheck" />
+        Readonly
+      </label>
+      <label>
+        <input type="checkbox" [(ngModel)]="showToolbar" name="toolbarCheck" />
+        Show Toolbar
+      </label>
+    </div>
+  </section>
+
+  <!-- Programmatic Control -->
+  <section>
+    <h2>Programmatic Control</h2>
+    <app-custom-rich-text-editor
+      #editor
+      name="programmaticEditor"
+      [(ngModel)]="programmaticContent"
+      height="200px"
+    >
+    </app-custom-rich-text-editor>
+
+    <div class="controls">
+      <button (click)="insertText()">Insert Text</button>
+      <button (click)="clearEditor()">Clear</button>
+      <button (click)="getContent()">Get Content</button>
+    </div>
+  </section>
+
+  <!-- Template-driven Form -->
+  <section>
+    <h2>Template-driven Form</h2>
+    <form #templateForm="ngForm" (ngSubmit)="onTemplateSubmit(templateForm)">
+      <div class="form-group">
+        <label for="content">Content:</label>
+        <app-custom-rich-text-editor
+          id="content"
+          name="content"
+          [(ngModel)]="templateContent"
+          #contentControl="ngModel"
+          required
+          placeholder="Enter content..."
+          height="200px"
+        >
+        </app-custom-rich-text-editor>
+        <div
+          class="error-message"
+          *ngIf="contentControl.errors?.['required'] && contentControl.touched"
+        >
+          Content is required
+        </div>
+      </div>
+      <button type="submit" [disabled]="templateForm.invalid">
+        Submit Template Form
+      </button>
+    </form>
+    <div class="form-debug">
+      <h4>Template Form Value:</h4>
+      <pre>{{ templateForm.value | json }}</pre>
+      <p>Valid: {{ templateForm.valid }}</p>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,19 @@
+<div class="select-container">
+  <button [cdkMenuTriggerFor]="menu" class="select-trigger">
+    {{ selectedOption || "Arial (sans-serif)" }}
+    <span class="arrow">&#x25BC;</span>
+  </button>
+
+  <ng-template #menu>
+    <div class="menu-options" cdkMenu>
+      <button
+        *ngFor="let option of fontOptions"
+        class="menu-item"
+        cdkMenuItem
+        (click)="onSelect(option)"
+      >
+        {{ option }}
+      </button>
+    </div>
+  </ng-template>
+</div>

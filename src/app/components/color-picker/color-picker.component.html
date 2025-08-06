@@ -1,0 +1,12 @@
+<div class="color-picker form-group">
+  <button class="btn btn-outline-secondary" (click)="colorInput.click()">
+    Cutomize Color
+  </button>
+  <input
+    #colorInput
+    type="color"
+    class="form-control-color"
+    [value]="color"
+    (input)="onColorChange($any($event.target).value)"
+  />
+</div>

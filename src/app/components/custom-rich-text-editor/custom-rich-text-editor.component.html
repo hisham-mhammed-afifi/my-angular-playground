@@ -1,0 +1,47 @@
+<div
+  class="rich-text-editor"
+  [class.disabled]="disabled"
+  [class.readonly]="readonly"
+>
+  <!-- Toolbar -->
+  <div class="toolbar" *ngIf="showToolbar">
+    <div class="toolbar-group">
+      <ng-container *ngFor="let button of toolbarButtons">
+        <div class="separator" *ngIf="button.command === 'separator'"></div>
+        <button
+          *ngIf="button.command !== 'separator'"
+          type="button"
+          class="toolbar-button"
+          [class.active]="isCommandActive(button.command)"
+          [disabled]="disabled || readonly"
+          [title]="button.title"
+          (click)="executeCommand(button.command)"
+        >
+          <span class="button-icon">{{ button.icon }}</span>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- Editor Content Area -->
+  <div class="editor-container">
+    <div
+      #editor
+      class="editor-content"
+      [style.height]="height"
+      [contentEditable]="!disabled && !readonly"
+      [attr.data-placeholder]="placeholder"
+      (input)="onEditorInput()"
+      (focus)="onEditorFocus()"
+      (blur)="onEditorBlur()"
+      (keydown)="onEditorKeyDown($event)"
+    ></div>
+  </div>
+
+  <!-- Character/Word Count (Optional) -->
+  <div class="editor-footer" *ngIf="showToolbar">
+    <div class="editor-stats">
+      <span class="word-count">{{ getContent().length }} characters</span>
+    </div>
+  </div>
+</div>

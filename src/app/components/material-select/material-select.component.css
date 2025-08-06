@@ -1,0 +1,65 @@
+.menu-options {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 180px;
+  max-width: 280px;
+  background-color: rgba(255, 255, 255);
+  padding: 6px 0;
+}
+
+.select-trigger {
+  background-color: transparent;
+  user-select: none;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  text-align: left;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.menu-item {
+  background-color: transparent;
+  user-select: none;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  text-align: left;
+  border: none;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background-color: rgb(208, 208, 208);
+}
+
+.menu-item:active {
+  background-color: rgb(170, 170, 170);
+}
+
+.example-standalone-item {
+  background-color: rgb(239, 239, 239);
+}
+.example-standalone-item:hover {
+  background-color: rgb(208, 208, 208);
+}
+.example-standalone-item[aria-expanded="true"] {
+  background-color: rgb(208, 208, 208);
+}

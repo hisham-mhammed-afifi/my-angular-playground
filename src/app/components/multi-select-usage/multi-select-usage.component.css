@@ -1,0 +1,9 @@
+.avatar img {
+  object-fit: cover;
+}
+
+pre {
+  font-size: 0.875rem;
+  max-height: 200px;
+  overflow-y: auto;
+}

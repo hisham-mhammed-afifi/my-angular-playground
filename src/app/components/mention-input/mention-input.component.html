@@ -1,0 +1,28 @@
+<div class="position-relative w-100">
+  <div
+    #editor
+    class="mention-input w-100 p-3"
+    contenteditable="true"
+    (input)="onInput()"
+    (keydown)="onKeyDown($event)"
+  ></div>
+
+  <div
+    *ngIf="showSuggestions"
+    class="suggestions-dropdown position-absolute"
+    [style.top.px]="suggestionPosition.top"
+    [style.left.px]="suggestionPosition.left"
+  >
+    <div
+      *ngFor="let user of filteredUsers; let i = index"
+      class="suggestion-item"
+      [class.active]="i === activeIndex"
+      (click)="selectUser(user)"
+    >
+      {{ "@" }}{{ user.name }}
+    </div>
+    <div *ngIf="filteredUsers.length === 0" class="no-results">
+      No users found
+    </div>
+  </div>
+</div>

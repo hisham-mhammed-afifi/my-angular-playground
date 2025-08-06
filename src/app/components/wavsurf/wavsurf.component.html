@@ -1,0 +1,13 @@
+<button (click)="record.startRecording()">Record</button>
+<button (click)="record.pauseRecording()">Pause</button>
+<button (click)="record.resumeRecording()">Resume</button>
+<button (click)="record.stopRecording()">Stop</button>
+
+<small>Current time: {{ wavesurfer?.getCurrentTime() }}</small>
+
+<button (click)="wavesurfer?.playPause()">Play / pause</button>
+<div class="waveform-container">
+  <div class="waveform" id="waveform" #waveform>
+    <!-- Placeholder for waveform visualization -->
+  </div>
+</div>

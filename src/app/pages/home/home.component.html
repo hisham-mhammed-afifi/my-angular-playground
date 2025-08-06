@@ -1,0 +1,128 @@
+<div class="container py-5">
+  <app-stepper
+    [steps]="[
+      { title: 'Step 1' },
+      { title: 'Step 2', state: 'completed' },
+      { title: 'Step 3', state: 'disabled' },
+      { title: 'Step 4', state: 'error' }
+    ]"
+    [(activeStep)]="currentStep"
+  ></app-stepper>
+
+  <pre>{{ currentStep | json }}</pre>
+
+  <app-material-stepper [stepLabels]="['Step 1', 'Step 2', 'Step 3']">
+    <cdk-step>
+      <p>Content for Step 1</p>
+    </cdk-step>
+    <cdk-step>
+      <p>Content for Step 2</p>
+    </cdk-step>
+    <cdk-step>
+      <p>Content for Step 3</p>
+    </cdk-step>
+  </app-material-stepper>
+
+  <app-material-clipboard></app-material-clipboard>
+
+  <app-color-picker [(ngModel)]="selectedColor"></app-color-picker>
+  <p class="mt-3">
+    Selected Color:
+    <span [style.color]="selectedColor">{{ selectedColor }}</span>
+  </p>
+
+  <hr />
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="color">Pick a Color:</label>
+      <app-color-picker id="color" formControlName="color"></app-color-picker>
+    </div>
+
+    <app-multi-select
+      id="multiSelect"
+      label="Multi-Select with Select All"
+      formControlName="multiSelect"
+      [items]="items"
+      placeholder="Select options..."
+      [showSelectAll]="true"
+    ></app-multi-select>
+
+    <button
+      type="submit"
+      class="btn btn-primary mt-3"
+      [disabled]="form.invalid"
+    >
+      Submit
+    </button>
+  </form>
+
+  <pre [style.color]="form.get('color')?.value">{{ form.value | json }}</pre>
+
+  <hr />
+
+  <app-material-accordion></app-material-accordion>
+
+  <hr />
+
+  <app-material-select [(ngModel)]="selectedFont"></app-material-select>
+
+  <hr />
+  <pre>{{ imageUrl | json }}</pre>
+  <app-widget-icon-updater [(imageUrl)]="imageUrl"></app-widget-icon-updater>
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+
+  <br />
+
+  <app-wavsurf></app-wavsurf>
+
+  <br />
+
+  <app-calender></app-calender>
+
+  <br />
+
+  <button
+    class="btn btn-outline-primary px-3"
+    (click)="openModal(mentionInput)"
+  >
+    Open mention input
+  </button>
+
+  <div class="mt-3" [innerHTML]="mentionText"></div>
+
+  <br />
+  <br />
+</div>
+
+<ng-template #mentionInput>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left mb-0">Create new note</h4>
+    <button
+      type="button"
+      class="btn-close close pull-right"
+      (click)="modalRef?.hide()"
+    >
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-mention-input
+      (contentChange)="mentionText = $event"
+    ></app-mention-input>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-default px-3"
+      (click)="modalRef?.hide()"
+    >
+      Cancel
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,11 @@
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.accordion-content.expanded {
+  max-height: 500px; /* Adjust as needed for your content's size */
+  opacity: 1;
+}

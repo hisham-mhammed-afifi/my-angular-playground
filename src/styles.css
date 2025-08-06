@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.gap {
+  gap: 1rem;
+}
+
+/*    Mention    */
+
+.mention {
+  color: #1976d2;
+  font-weight: 500;
+  background-color: rgba(25, 118, 210, 0.1);
+  padding: 0 2px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* Bootstrap override */
+
+.btn-close {
+  font-size: 0.8rem !important;
+}

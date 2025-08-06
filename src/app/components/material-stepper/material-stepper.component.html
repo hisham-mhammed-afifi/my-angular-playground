@@ -1,0 +1,26 @@
+<div class="custom-stepper">
+  <!-- Stepper Steps -->
+  <div class="step-container">
+    <ng-container *ngFor="let step of steps; let i = index">
+      <div
+        class="step"
+        [class.active]="selectedIndex === i"
+        [class.completed]="i < selectedIndex"
+        (click)="selectedIndex = i"
+      >
+        <div class="step-number">{{ i + 1 }}</div>
+        <div class="step-label">{{ stepLabels[i] || "Step " + (i + 1) }}</div>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Stepper Content -->
+
+  <div [ngTemplateOutlet]="selected ? selected.content : null"></div>
+
+  <!-- Navigation Buttons -->
+  <div class="step-navigation">
+    <button mat-button cdkStepperPrevious>Back</button>
+    <button mat-button cdkStepperNext>Next</button>
+  </div>
+</div>

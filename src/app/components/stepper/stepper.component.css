@@ -1,0 +1,64 @@
+.stepper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.steps {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.step {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.step.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.step.error .step-number {
+  background-color: red;
+  color: white;
+}
+
+.step.active .step-number {
+  background-color: #007bff;
+  color: white;
+}
+
+.step.completed .step-number {
+  background-color: green;
+  color: white;
+}
+
+.step .step-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.step .step-title {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.connector {
+  flex: 1;
+  height: 2px;
+  background-color: #e0e0e0;
+  margin: 0 10px;
+}

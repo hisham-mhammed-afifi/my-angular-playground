@@ -1,0 +1,69 @@
+<div class="form-group mt-3">
+  <label [for]="id">{{ label }}</label>
+
+  <ng-select
+    [labelForId]="id"
+    [items]="displayItems"
+    [bindLabel]="bindLabel"
+    [bindValue]="bindValue"
+    [placeholder]="placeholder"
+    [multiple]="true"
+    [trackByFn]="trackByFn"
+    [searchable]="searchable"
+    [clearable]="false"
+    [disabled]="disabled"
+    [closeOnSelect]="false"
+    [ngModel]="internalModel"
+    (ngModelChange)="onModelChange($event)"
+    (focus)="onFocus()"
+    class="custom_select"
+    [ngStyle]="{
+      '--custom-height': containerHeight
+    }"
+  >
+    <!-- Custom option template -->
+    <ng-template ng-option-tmp let-item="item" let-index="index">
+      <div class="custom-option-wrapper" (click)="onOptionClick(item, $event)">
+        <input
+          type="checkbox"
+          [checked]="isItemSelected(item)"
+          [disabled]="disabled"
+          (click)="$event.stopPropagation()"
+          tabindex="-1"
+        />
+
+        <div class="option-content">
+          <ng-container
+            *ngIf="
+              optionTemplate && item[bindValue] !== '__SELECT_ALL__';
+              else defaultTemplate
+            "
+          >
+            <ng-template
+              [ngTemplateOutlet]="optionTemplate"
+              [ngTemplateOutletContext]="{ $implicit: item }"
+            ></ng-template>
+          </ng-container>
+
+          <ng-template #defaultTemplate>
+            <span>{{ item[bindLabel] }}</span>
+          </ng-template>
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Custom multi-label template -->
+    <ng-template ng-multi-label-tmp let-items="items">
+      <ng-container *ngIf="multiLabelTemplate; else defaultMultiLabel">
+        <ng-template
+          [ngTemplateOutlet]="multiLabelTemplate"
+          [ngTemplateOutletContext]="{ items: items }"
+        ></ng-template>
+      </ng-container>
+
+      <ng-template #defaultMultiLabel>
+        <span class="selected-items-display">{{ selectedItemsLabels() }}</span>
+      </ng-template>
+    </ng-template>
+  </ng-select>
+</div>

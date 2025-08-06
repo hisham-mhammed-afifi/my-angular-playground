@@ -1,0 +1,13 @@
+<div class="calender-container p-3">
+  <button [cdkMenuTriggerFor]="menu" class="btn btn-outline-primary px-3">
+    Open Canlender
+  </button>
+</div>
+
+<ng-template #menu>
+  <bs-daterangepicker-inline
+    [bsValue]="range"
+    (bsValueChange)="selectRange($event)"
+    [bsConfig]="{ containerClass: 'theme-blue', ranges: ranges }"
+  ></bs-daterangepicker-inline>
+</ng-template>

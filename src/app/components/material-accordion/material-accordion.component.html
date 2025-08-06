@@ -1,0 +1,38 @@
+<div cdkAccordion>
+  <div
+    class="card p-3 my-3"
+    cdkAccordionItem
+    *ngFor="let item of items; let index = index"
+    #accordionItem="cdkAccordionItem"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="d-flex justify-content-between align-items-center"
+      (click)="accordionItem.toggle()"
+    >
+      <div class="d-flex gap">
+        <p class="m-0">{{ item + index + 1 }}</p>
+        <img src="assets/icons/info-circle.svg" alt="info" />
+      </div>
+      <img
+        *ngIf="!accordionItem.expanded"
+        src="assets/icons/chevron-down.svg"
+        alt="down"
+      />
+      <img
+        *ngIf="accordionItem.expanded"
+        src="assets/icons/chevron-up.svg"
+        alt="up"
+      />
+    </div>
+    <div class="accordion-content" [class.expanded]="accordionItem.expanded">
+      <div class="border-top pt-3 mt-3">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis
+        excepturi incidunt ipsum deleniti labore, tempore non nam doloribus
+        blanditiis veritatis illo autem iure aliquid ullam rem tenetur deserunt
+        velit culpa?
+      </div>
+    </div>
+  </div>
+</div>

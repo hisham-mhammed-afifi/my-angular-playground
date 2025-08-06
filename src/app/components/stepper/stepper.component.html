@@ -1,0 +1,41 @@
+<div class="stepper">
+  <div class="steps">
+    <ng-container *ngFor="let step of steps; let i = index">
+      <!-- Custom Template Support -->
+      <ng-container *ngIf="customStepTemplate; else defaultStep">
+        <ng-container
+          *ngTemplateOutlet="
+            customStepTemplate;
+            context: { $implicit: step, index: i, active: i === activeStep }
+          "
+        >
+        </ng-container>
+      </ng-container>
+
+      <!-- Default Template -->
+      <ng-template #defaultStep>
+        <div
+          class="step"
+          [ngClass]="{
+            active: i === activeStep,
+            completed: i < activeStep,
+            disabled: step.state === 'disabled',
+            error: step.state === 'error'
+          }"
+          [ngStyle]="stepStyle"
+          (click)="navigateToStep(i)"
+        >
+          <div class="step-number">{{ i + 1 }}</div>
+          <div class="step-title">{{ step.title }}</div>
+        </div>
+      </ng-template>
+
+      <!-- Connector -->
+      <div
+        *ngIf="i < steps.length - 1"
+        class="connector"
+        [ngStyle]="connectorStyle"
+      ></div>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,153 @@
+<div class="container mt-4">
+  <h2>Multi-Select Form Example</h2>
+
+  <form [formGroup]="demoForm" (ngSubmit)="onSubmit()" class="mt-4">
+    <!-- Basic Multi-Select -->
+
+    <app-multi-select
+      id="basicSelect"
+      label="Basic Multi-Select *"
+      formControlName="basicSelection"
+      [items]="basicItems"
+      placeholder="Select basic options..."
+    ></app-multi-select>
+    <div *ngIf="isFieldInvalid('basicSelection')" class="text-danger mt-1">
+      <small>This field is required</small>
+    </div>
+
+    <!-- Multi-Select with Select All -->
+
+    <app-multi-select
+      id="selectAllDemo"
+      label="Multi-Select with Select All"
+      formControlName="selectAllSelection"
+      [items]="categoryItems"
+      placeholder="Choose categories..."
+      [showSelectAll]="true"
+      [searchable]="true"
+    ></app-multi-select>
+
+    <!-- Multi-Select with Custom Template -->
+
+    <app-multi-select
+      id="customTemplate"
+      label="Multi-Select with Custom Option Template"
+      formControlName="customSelection"
+      [items]="userItems"
+      bindLabel="name"
+      bindValue="id"
+      placeholder="Select users..."
+      [searchable]="true"
+    >
+      <ng-template #optionTemplate let-item>
+        <div class="d-flex align-items-center">
+          <div class="avatar me-2">
+            <img
+              [src]="item.avatar"
+              [alt]="item.name"
+              class="rounded-circle"
+              width="24"
+              height="24"
+            />
+          </div>
+          <div>
+            <div class="fw-medium">{{ item.name }}</div>
+            <small class="text-muted">{{ item.email }}</small>
+          </div>
+        </div>
+      </ng-template>
+    </app-multi-select>
+
+    <!-- Multi-Select with Custom Multi-Label Template -->
+
+    <app-multi-select
+      id="customMultiLabel"
+      label="Multi-Select with Custom Multi-Label"
+      formControlName="tagSelection"
+      [items]="tagItems"
+      placeholder="Select tags..."
+      [showSelectAll]="true"
+    >
+      <ng-template #multiLabelTemplate let-items="items">
+        <div class="d-flex flex-wrap gap-1">
+          <span
+            *ngFor="let item of getSelectedTags() | slice : 0 : 3"
+            class="badge bg-primary"
+          >
+            {{ item.label }}
+          </span>
+          <span *ngIf="getSelectedTags().length > 3" class="badge bg-secondary">
+            +{{ getSelectedTags().length - 3 }} more
+          </span>
+        </div>
+      </ng-template>
+    </app-multi-select>
+
+    <!-- Disabled Multi-Select -->
+
+    <app-multi-select
+      id="disabledSelect"
+      label="Disabled Multi-Select"
+      formControlName="disabledSelection"
+      [items]="basicItems"
+      placeholder="This is disabled..."
+    ></app-multi-select>
+
+    <!-- Form Actions -->
+    <div class="d-flex gap-2">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="demoForm.invalid"
+      >
+        Submit Form
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="resetForm()">
+        Reset
+      </button>
+      <button type="button" class="btn btn-info" (click)="presetValues()">
+        Preset Values
+      </button>
+    </div>
+
+    <!-- Form Values Display -->
+    <div class="mt-4 p-3 bg-light rounded">
+      <h5>Form Values (Real-time)</h5>
+      <pre>{{ getFormValues() | json }}</pre>
+      <div class="mt-2"><strong>Form Valid:</strong> {{ demoForm.valid }}</div>
+    </div>
+  </form>
+</div>
+
+<hr />
+
+<div class="container p-4">
+  <h3>Simple Select All Test</h3>
+
+  <app-multi-select
+    id="selectAllTest"
+    label="Multi-Select with Select All:"
+    [items]="testItems"
+    [showSelectAll]="true"
+    [formControl]="testControl"
+    placeholder="Select items..."
+    [searchable]="true"
+  >
+  </app-multi-select>
+
+  <div class="mt-3 p-3 bg-light">
+    <strong>Selected Values:</strong>
+    <pre>{{ testControl.value | json }}</pre>
+    <div class="mt-2">
+      <button class="btn btn-sm btn-secondary me-2" (click)="selectAll()">
+        Select All Programmatically
+      </button>
+      <button class="btn btn-sm btn-secondary me-2" (click)="selectNone()">
+        Select None
+      </button>
+      <button class="btn btn-sm btn-secondary" (click)="selectSome()">
+        Select Some
+      </button>
+    </div>
+  </div>
+</div>
